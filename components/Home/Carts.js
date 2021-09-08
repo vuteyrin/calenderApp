@@ -2,24 +2,27 @@ import React from "react";
 import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
-const Carts = ({ name, url, id }) => {
+import { Octicons } from '@expo/vector-icons';
+const Carts = ({ months,id }) => {
+  // console.log(months)
   return (
     <View key={id} style={styles.container}>
-      <Text>{name}</Text>
-      <Image style={styles.image} source={url} />
+      <Text style={styles.title}>{months}</Text>
+      <Octicons name="calendar" size={70} color="black" />
+      <Text>2021</Text>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    // justifyContent: "space-between",
     alignItems: "center",
-    textAlign: "center",
-    width: screenWidth / 2,
-    height: screenHeight / 3,
-    backgroundColor: "#FFFF",
-    margin: 20,
+    // textAlign: "center",
+    width: screenWidth * 0.45,
+    height: screenHeight / 5,
+    backgroundColor: "#FFFFE0",
+    margin: screenWidth *0.025,
 
     ///
     // shadowColor: "#000",
@@ -30,12 +33,22 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.57,
     // shadowRadius: 15.19,
     elevation: 22,
+    position: "relative",
+    // borderWidth: 1,
+    borderRadius: 5,
   },
-  image: {
-    width: "100%",
-    height: "90%",
-    // resizeMode: "contain",
+  calen: {
+    // backgroundColor: "yellow",
+    // width: "100%",
+    // height: "100%"
+    
+   
   },
+  title:{
+    fontSize: 21,
+    // marginTop: 30,
+    // backgroundColor: "red"
+  }
 });
 
 export default Carts;

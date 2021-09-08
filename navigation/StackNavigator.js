@@ -14,6 +14,9 @@ import Receipt from "../screens/Receipt";
 import More from "../screens/More";
 import Payment from "../screens/Payment";
 import Item from "../screens/Item";
+import Store from "../components/store/Store";
+import PayMethod from "../components/paymentMethod/PayMethod";
+import dateDetial from "../screens/dateDetial";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 const screenOptionStyle = {
@@ -36,6 +39,18 @@ const MainStackNavigator = () => {
             headerTitle: () => <Header navigation={navigation} route={route} />,
           };
         }}
+        // options={{
+        //   headerShown: false,
+        // }}
+      />
+       <Stack.Screen
+        name="DateDetail"
+        component={dateDetial}
+        // options={({ navigation, route }) => {
+        //   return {
+        //     headerTitle: () => <Header navigation={navigation} route={route} />,
+        //   };
+        // }}
         // options={{
         //   headerShown: false,
         // }}
@@ -144,6 +159,24 @@ const MoreStackNavigator = () => {
             headerTitle: () => <Header navigation={navigation} route={route} />,
           };
         }}
+      />
+       <Stack.Screen
+        name="Store"
+        component={Store}
+        // options={({ navigation, route }) => {
+        //   return {
+        //     headerTitle: () => <Header navigation={navigation} route={route} />,
+        //   };
+        // }}
+      />
+       <Stack.Screen
+        name="PaymentMethod"
+        component={PayMethod}
+        // options={({ navigation, route }) => {
+        //   return {
+        //     headerTitle: () => <Header navigation={navigation} route={route} />,
+        //   };
+        // }}
       />
     </Stack.Navigator>
   );

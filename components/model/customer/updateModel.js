@@ -11,9 +11,12 @@ import {useStateValue} from "../../../context/StateProvider"
 import { customerData } from "../../../data/Data";
 import { setLocalstorage } from "../../../function/Function";
 import {actionTypes} from "../../../context/Reducer"
-// const AddCustomer = ({modalAddCustomer,setModalAddCustomer}) => {
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import ConfirmDelete from "./confirmDelete";
+import { Ionicons } from "@expo/vector-icons";
   const UpdateCustomer = ({modalVisible,setModalVisible,id}) => {
   const [{customer},dispatch] = useStateValue();
+  const [openConfirmDelete,setOpenConfirmDelete] = useState(false);
   const [name,setName] = useState();
   const [phone,setPhone] = useState();
   const [address,setAddress] = useState();
@@ -35,14 +38,18 @@ import {actionTypes} from "../../../context/Reducer"
     setAddress("");
     setRemark("");
   }
+ 
   useEffect(()=>{
     const newArr =  customer.filter((item) => item.id === id);
-    setName(newArr[0].name);
-    setPhone(newArr[0].Tel);
-    setAddress(newArr[0].Address);
-    setRemark(newArr[0].remark)
+    if(newArr.length !== 0){
+      setName(newArr[0].name);
+      setPhone(newArr[0].Tel);
+      setAddress(newArr[0].Address);
+      setRemark(newArr[0].remark)
+    }
+
     
-  },[id])
+  },[modalVisible])
   return (
     <SafeAreaView style={styles.centeredView}>
       <Modal
@@ -50,11 +57,19 @@ import {actionTypes} from "../../../context/Reducer"
         transparent={true}
         visible={modalVisible}
       >
-        <TouchableWithoutFeedback style={styles.centeredView} onPress={()=> setModalVisible(!modalVisible)}>
+        <TouchableWithoutFeedback style={styles.centeredView} >
           <View style={styles.modalView}>
+          <TouchableWithoutFeedback onPress={()=> setModalVisible(!modalVisible)} >
+              <View style={{ width: "100%", paddingLeft: 12 }}>
+                <Ionicons name="backspace-outline" size={24} color="black" />
+              </View>
+            </TouchableWithoutFeedback>
             <View style={styles.form}>
-              <Text style={styles.label}>Create New Customers</Text>
-              <Text>add customer</Text>
+              <Text style={styles.label}>Update Customers</Text>
+              <Text> customer</Text>
+              <View style={styles.delete}>
+                <MaterialCommunityIcons onPress={()=>{ setOpenConfirmDelete(!openConfirmDelete)}} name="delete-sweep" size={30} color="red" />
+              </View>
               <View style={styles.input}>
               <AntDesign name="user" size={15} color="black" />
                 <TextInput value={name} onChangeText={(e)=> setName(e)} style={{width:"100%",marginLeft:10}} placeholder="name.."/>
@@ -77,6 +92,8 @@ import {actionTypes} from "../../../context/Reducer"
               </TouchableWithoutFeedback>
               </View>
             </View>
+            <ConfirmDelete openConfirmDelete={openConfirmDelete} setOpenConfirmDelete={setOpenConfirmDelete} id={id}
+             setModalVisible={setModalVisible} modalVisible={modalVisible}  />
           </View>
         </TouchableWithoutFeedback>
       </Modal>
@@ -110,6 +127,11 @@ const styles = StyleSheet.create({
     // backgroundColor:"red",
     // justifyContent:"center",
     alignItems:"center"
+  },
+  delete: {
+    // backgroundColor: "red",
+    width: "100%",
+    paddingHorizontal: 20,
   },
   label:{
     fontWeight: "bold",

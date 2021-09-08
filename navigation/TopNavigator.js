@@ -17,17 +17,17 @@ export default function TopNavigator() {
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{ tabBarLabel: language ? "Home" : "ផ្ទះ" }}
+        options={{ tabBarLabel: language ? "This Year" : "ផ្ទះ" }}
       />
       <Tab.Screen
         name="Notifications"
         component={Home}
-        options={{ tabBarLabel: language ? "roll on" : "លាប ខ្លៀក" }}
+        options={{ tabBarLabel: language ? "Last Year" : "លាប ខ្លៀក" }}
       />
       <Tab.Screen
         name="Profile"
         component={Home}
-        options={{ tabBarLabel: language ? "sompor" : "សាប៊ូ" }}
+        options={{ tabBarLabel: language ? "Next Year" : "សាប៊ូ" }}
       />
     </Tab.Navigator>
   );

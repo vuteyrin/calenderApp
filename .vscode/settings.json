@@ -1,0 +1,6 @@
+{
+ "editor.scrollbar.verticalScrollbarSize": 8,
+ "editor.scrollBeyondLastColumn": 2,
+ "editor.tabSize": 1,
+ "editor.wordWrapColumn": 60
+}

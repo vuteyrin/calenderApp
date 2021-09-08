@@ -35,7 +35,7 @@ const Setting = () => {
           />
         </View>
       </View>
-      <View style={styles.language}>
+      {/* <View style={styles.language}>
         <Image
           style={styles.englishFlag}
           source={require("../assets/Image/khmerFlag.png")}
@@ -51,7 +51,7 @@ const Setting = () => {
             tintColor={"grey"}
           />
         </View>
-      </View>
+      </View> */}
       <View style={styles.language}>
         <Text style={{ padding: 10 }}>Version 10.1.12</Text>
       </View>

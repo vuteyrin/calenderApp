@@ -8,7 +8,7 @@ import { EvilIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import {useStateValue} from "../../../context/StateProvider"
-import { customerData } from "../../../data/Data";
+import { Ionicons } from "@expo/vector-icons";
 import { setLocalstorage } from "../../../function/Function";
 import {actionTypes} from "../../../context/Reducer"
 const AddCustomer = ({modalAddCustomer,setModalAddCustomer}) => {
@@ -23,7 +23,7 @@ const AddCustomer = ({modalAddCustomer,setModalAddCustomer}) => {
       newArray = [
         ...customer,
         {
-          id: customer.length +1,
+          id: Math.random(),
           name: name,
           Tel: phone,
           Address: address,
@@ -36,6 +36,10 @@ const AddCustomer = ({modalAddCustomer,setModalAddCustomer}) => {
       type: actionTypes.CUSTOMER,
       customer: newArray
     })
+    setName("");
+    setPhone("");
+    setAddress("");
+    setRemark("");
   }
   return (
     <SafeAreaView style={styles.centeredView}>
@@ -44,8 +48,15 @@ const AddCustomer = ({modalAddCustomer,setModalAddCustomer}) => {
         transparent={true}
         visible={modalAddCustomer}
       >
-        <TouchableWithoutFeedback style={styles.centeredView} onPress={()=> setModalAddCustomer(!modalAddCustomer)}>
+        <TouchableWithoutFeedback style={styles.centeredView} >
           <View style={styles.modalView}>
+          <TouchableWithoutFeedback
+            onPress={()=> setModalAddCustomer(!modalAddCustomer)}
+            >
+              <View style={{ width: "100%", paddingLeft: 12 }}>
+                <Ionicons name="backspace-outline" size={24} color="black" />
+              </View>
+            </TouchableWithoutFeedback>
             <View style={styles.form}>
               <Text style={styles.label}>Create New Customers</Text>
               <Text>add customer</Text>

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text,AsyncStorage } from "react-native";
+import { View, Text, AsyncStorage } from "react-native";
 import { Container, Heading, NativeBaseProvider, Center } from "native-base";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Home from "../screens/Home";
@@ -21,41 +21,62 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { actionTypes } from "../context/Reducer";
-import {customerData} from "../data/Data";
+import { customerData } from "../data/Data";
 import { useStateValue } from "../context/StateProvider";
 import { setLocalstorage } from "../function/Function";
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
-  const [{customer},dispatch] = useStateValue();
+  const [{ customer, item }, dispatch] = useStateValue();
   const getLocalStorage = async () => {
-    // customner 
+    // customner
     let customer = await AsyncStorage.getItem("customer");
     let newCusotmer = customer === null ? [] : JSON.parse(customer);
     dispatch({
       type: actionTypes.CUSTOMER,
       customer: newCusotmer,
-    })
+    });
+    // item
+    let item = await AsyncStorage.getItem("item");
+    let newItem = item === null ? [] : JSON.parse(item);
+    dispatch({
+      type: actionTypes.ITEM,
+      item: newItem,
+    });
+    // store
+    let store = await AsyncStorage.getItem("store");
+    let newStore = store === null ? [] : JSON.parse(store);
+    dispatch({
+      type: actionTypes.STORE,
+      store: newStore,
+    });
+    // payment method
+    let paymentMethod = await AsyncStorage.getItem("paymentMethod");
+    let newMethod = paymentMethod === null ? [] : JSON.parse(paymentMethod);
+    dispatch({
+      type: actionTypes.PAYMENTMETHOD,
+      paymentmethod: newMethod,
+    });
   };
-    React.useEffect(() => {
-      getLocalStorage();
-  },[])
+  React.useEffect(() => {
+    getLocalStorage();
+  }, []);
   return (
     <Drawer.Navigator initialRouteName="Home" drawerStyle={{ width: "60%" }}>
       <Drawer.Screen
         name="Home"
         component={BottomTabNavigator}
         options={{
-          title: "Home",
+          title: "Back",
           drawerIcon: ({ focused, size }) => (
-            <FontAwesome
-              name="home"
-              size={20}
+            <Ionicons
+              name="chevron-back"
+              size={24}
               color={focused ? "#e32f45" : "#748c94"}
             />
           ),
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="customer"
         component={CustomerStackNavigator}
         options={{
@@ -83,20 +104,7 @@ const DrawerNavigator = () => {
           ),
         }}
       />
-      <Drawer.Screen
-        name="More"
-        component={MoreStackNavigator}
-        options={{
-          title: "More",
-          drawerIcon: ({ focused, size }) => (
-            <Feather
-              name="more-horizontal"
-              size={20}
-              color={focused ? "#e32f45" : "#748c94"}
-            />
-          ),
-        }}
-      />
+
       <Drawer.Screen
         name="Payment"
         component={PaymentStackNavigator}
@@ -139,6 +147,20 @@ const DrawerNavigator = () => {
           ),
         }}
       />
+      <Drawer.Screen
+        name="More"
+        component={MoreStackNavigator}
+        options={{
+          title: "More",
+          drawerIcon: ({ focused, size }) => (
+            <Feather
+              name="more-horizontal"
+              size={20}
+              color={focused ? "#e32f45" : "#748c94"}
+            />
+          ),
+        }}
+      /> */}
     </Drawer.Navigator>
   );
 };

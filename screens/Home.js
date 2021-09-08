@@ -7,23 +7,49 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Alert
 } from "react-native";
 import Carts from "../components/Home/Carts";
 import Video from "react-native-video";
 import { data } from "../data/Data";
+import { months } from "../data/CalendarData";
 import { useStateValue } from "../context/StateProvider";
+import { TouchableWithoutFeedback } from "react-native";
+import { TouchableHighlight } from "react-native";
+import { TouchableNativeFeedback } from "react-native";
+import { TouchableOpacity } from "react-native";
+import { addCustomer } from "../function/Function";
+import { Button } from "react-native-elements";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
-const Home = () => {
+const Home = ({navigation,route}) => {
   const [{ language }, dispatch] = useStateValue();
-  // console.log(language);
+  // const handleGetData = () =>{
+  //   try{
+  //      db.collection("customers").get().then((doc)=>{
+  //        doc.forEach((doc) => {
+  //          console.log(doc.data())
+  //      });
+  //    })
+  //     }catch(e){
+  //      console.error(e);
+  //     }
+  // }
+
   const renderItem = ({ item }) => (
-    <Carts id={item.id} url={item.url} name={item.name} />
+    <TouchableHighlight 
+    onPress={()=> navigation.navigate("DateDetail")}
+    activeOpacity={0.6}
+    underlayColor="#DDDDDD"
+    >
+        <Carts id={item.id} months={item.months} />
+    </TouchableHighlight>
   );
   return (
     <SafeAreaView style={styles.container}>
+      {/* <Button title="click add" onPress={() => addCustomer()} /> */}
       <FlatList
-        data={data}
+        data={months}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         numColumns={2}

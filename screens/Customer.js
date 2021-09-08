@@ -11,13 +11,23 @@ import { customerData } from "../data/Data";
 import UpdateCustomer from "../components/model/customer/updateModel";
 import AddCustomer from "../components/model/customer/addCustomer";
 import { ScrollView } from "react-native";
+import {db} from "../api/firebase";
 const Customer = () => {
   const [{ customer }, dispatch] = useStateValue();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalAddCustomer,setModalAddCustomer] = useState(false)
   const [id,setId] = useState()
   var no = 1;
-// console.log(customer)
+  // const customers = firebase.firestore().collection('customers');
+  // // get data 
+  //  const getCustomers = async() => {
+  //   const Foods = await customers.then(querySnapshot => {
+  //     console.log('Total customers: ', querySnapshot.size);
+  //     querySnapshot.forEach(doc => {
+  //       console.log(doc.data());
+  //     });
+  //   });
+  //   }
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -31,6 +41,9 @@ const Customer = () => {
           <TextInput style={styles.inputSearch} placeholder="search..." />
           <TouchableNativeFeedback onPress={()=>setModalAddCustomer(!modalAddCustomer)}>
             <Text style={styles.add}>add</Text>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback onPress={()=>getCustomers()}>
+            <Text style={styles.add}>test</Text>
           </TouchableNativeFeedback>
         </View>
       </TouchableWithoutFeedback>
@@ -92,6 +105,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingTop: 10,
     borderRadius: 5,
+    color: "#FFFF"
   },
   header: {
     width:"100%",
